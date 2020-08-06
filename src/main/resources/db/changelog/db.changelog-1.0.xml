@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    
+    <changeSet id="1" author="sheetal">
+        <sql>
+			CREATE TABLE Enrollment (
+				id BIGINT NOT NULL AUTO_INCREMENT,
+				user_id BIGINT,
+				technology_id BIGINT,
+				comments VARCHAR(255) NOT NULL,
+				proposal_Amount BIGINT,
+				proposal_Status VARCHAR(255) NOT NULL,
+				CONSTRAINT PK_id PRIMARY KEY (id),
+				CONSTRAINT fk_user_course FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE ON UPDATE CASCADE,
+				CONSTRAINT fk_technology_course FOREIGN KEY (technology_id) REFERENCES Technology (id) ON DELETE CASCADE ON UPDATE CASCADE
+            );
+        </sql>
+        <rollback>
+            DROP TABLE Enrollment;
+        </rollback>
+    </changeSet>
+
+   <changeSet id="2" author="sheetal">
+        <sql>
+			INSERT INTO Enrollment (user_id, technology_id, comments,proposal_Amount,proposal_Status) values (1, 4, 'Consider my proposal',6000,'Not Started');
+			INSERT INTO Enrollment (user_id, technology_id, comments,proposal_Amount,proposal_Status) values (1, 5, 'Consider and accept proposal',5000,'Not Started');
+			INSERT INTO Enrollment (user_id, technology_id, comments,proposal_Amount,proposal_Status) values (1, 6, 'Consider proposal',6000,'Not Started');
+			INSERT INTO Enrollment (user_id, technology_id, comments,proposal_Amount,proposal_Status) values (1, 7, 'Consider proposal',8000,'Not Started');
+			
+        </sql>
+     <rollback>
+         TRUNCATE TABLE Technology;
+     </rollback>
+    </changeSet>
+    
+    
+    
+</databaseChangeLog>
