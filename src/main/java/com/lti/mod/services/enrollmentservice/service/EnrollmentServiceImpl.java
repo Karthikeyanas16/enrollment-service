@@ -33,6 +33,11 @@ public class EnrollmentServiceImpl  implements EnrollmentService{
 	public List<Enrollment> getUserEnrollment(Long userId) {
 		return enrollmentRepository.findAllbyUserId(userId);
 	}
+
+	@Override
+	public List<Enrollment> findAllProposalSubmittedByUSer(Long userId, String proposalStatus) {
+		return enrollmentRepository.findAllProposalSubmittedByUser(userId, proposalStatus);
+	}
 	
 	
 }

@@ -55,11 +55,18 @@ public class EnrollmentController {
 	
 	@GetMapping("/search/{userId}")
     public ResponseEntity<?> findEnrollment(@PathVariable Long userId) throws NotFoundException {
-		System.out.println("### Inside create Enrollment");
 		
+		if(userId == 0)
+			throw new NotFoundException("User not found");
+		
+		 return new ResponseEntity<>(enrollmentService.getUserEnrollment(userId), HttpStatus.CREATED);
+    }
+	
+	@GetMapping("/search/{userId}/{proposalStatus}")
+    public ResponseEntity<?> findAllProposalSubmitedByUser(@PathVariable Long userId, @PathVariable String proposalStatus) throws NotFoundException {
 		if(userId == 0)
 			throw new NotFoundException("User id not found");
 		
-		 return new ResponseEntity<>(enrollmentService.getUserEnrollment(userId), HttpStatus.CREATED);
+		 return new ResponseEntity<>(enrollmentService.findAllProposalSubmittedByUSer(userId, proposalStatus), HttpStatus.CREATED);
     }
 }

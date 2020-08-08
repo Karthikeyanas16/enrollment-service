@@ -11,5 +11,7 @@ public interface EnrollmentService {
 	void deleteEnrollment(Long id);
 
 	List<Enrollment> getUserEnrollment(Long userId);
+	
+	List<Enrollment> findAllProposalSubmittedByUSer(Long userId, String proposalStatus);
 
 }

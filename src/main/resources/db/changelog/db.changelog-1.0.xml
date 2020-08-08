@@ -8,7 +8,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     
-    <changeSet id="1" author="sheetal">
+    <changeSet id="enrollment_service_1" author="sheetal">
         <sql>
 			CREATE TABLE Enrollment (
 				id BIGINT NOT NULL AUTO_INCREMENT,
@@ -27,12 +27,12 @@
         </rollback>
     </changeSet>
 
-   <changeSet id="2" author="sheetal">
+   <changeSet id="enrollment_service_2" author="sheetal">
         <sql>
-			INSERT INTO Enrollment (user_id, technology_id, comments,proposal_Amount,proposal_Status) values (1, 4, 'Consider my proposal',6000,'Not Started');
-			INSERT INTO Enrollment (user_id, technology_id, comments,proposal_Amount,proposal_Status) values (1, 5, 'Consider and accept proposal',5000,'Not Started');
-			INSERT INTO Enrollment (user_id, technology_id, comments,proposal_Amount,proposal_Status) values (1, 6, 'Consider proposal',6000,'Not Started');
-			INSERT INTO Enrollment (user_id, technology_id, comments,proposal_Amount,proposal_Status) values (1, 7, 'Consider proposal',8000,'Not Started');
+			INSERT INTO Enrollment (user_id, technology_id, comments,proposal_Amount,proposal_Status) values (1, 1, 'Consider my proposal',6000,'Not Started');
+			INSERT INTO Enrollment (user_id, technology_id, comments,proposal_Amount,proposal_Status) values (1, 2, 'Consider and accept proposal',5000,'Not Started');
+			INSERT INTO Enrollment (user_id, technology_id, comments,proposal_Amount,proposal_Status) values (1, 3, 'Consider proposal',6000,'Not Started');
+			INSERT INTO Enrollment (user_id, technology_id, comments,proposal_Amount,proposal_Status) values (1, 4, 'Consider proposal',8000,'Not Started');
 			
         </sql>
      <rollback>
