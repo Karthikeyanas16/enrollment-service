@@ -47,7 +47,13 @@ public class Enrollment implements Serializable{
     
     @Transient
     private int fees;
+    
+    @Transient
+    private String username;
 
+    
+    @Transient
+    private String mentorname;
     
     public Enrollment() {}
 
@@ -118,6 +124,56 @@ public class Enrollment implements Serializable{
 
 	public void setProposalStatus(String proposalStatus) {
 		this.proposalStatus = proposalStatus;
+	}
+
+
+	public String getTechnology() {
+		return technology;
+	}
+
+
+	public void setTechnology(String technology) {
+		this.technology = technology;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+	public int getFees() {
+		return fees;
+	}
+
+
+	public void setFees(int fees) {
+		this.fees = fees;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public String getMentorname() {
+		return mentorname;
+	}
+
+
+	public void setMentorname(String mentorname) {
+		this.mentorname = mentorname;
 	}
 
 	

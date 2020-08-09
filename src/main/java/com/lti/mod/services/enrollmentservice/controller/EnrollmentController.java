@@ -19,7 +19,6 @@ import com.lti.mod.services.enrollmentservice.model.Technology;
 import com.lti.mod.services.enrollmentservice.model.User;
 import com.lti.mod.services.enrollmentservice.proxy.UserProxy;
 import com.lti.mod.services.enrollmentservice.service.EnrollmentService;
-import com.lti.mod.services.intercom.SearchServiceClient;
 
 import javassist.NotFoundException;
 
@@ -29,9 +28,6 @@ public class EnrollmentController {
 	@Autowired
 	EnrollmentService enrollmentService;
 	
-//	@Autowired
-//	SearchServiceClient searchServiceClient;
-
 	
 	@Autowired
 	private UserProxy proxy;
@@ -104,4 +100,27 @@ public class EnrollmentController {
 		return new ResponseEntity<>(enrollments, HttpStatus.OK);
 		
 	}
+	
+	@GetMapping("/findall")
+    public ResponseEntity<?> getAllEnrollements() throws NotFoundException {
+		
+		List<Enrollment> enrollments = enrollmentService.findAll();
+		
+		for (Enrollment enrollment : enrollments) {
+			User user = proxy.findUserbyId(BigInteger.valueOf(enrollment.getUser_id()));
+			if(user!=null)
+				enrollment.setUsername(user.getEmail());
+			
+			User mentor = proxy.findUserbyId(BigInteger.valueOf(enrollment.getMentor_id()));
+			if(mentor!=null)
+				enrollment.setMentorname(mentor.getEmail());
+			
+			Technology technology = proxy.findTechnologybyId(enrollment.getTechnology_id());
+			if(technology!= null)
+				enrollment.setTechnology(technology.getTechnology());
+
+		}
+		
+		return new ResponseEntity<>(enrollments, HttpStatus.CREATED);
+    }
 }

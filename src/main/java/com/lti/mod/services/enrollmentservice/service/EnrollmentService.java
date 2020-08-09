@@ -14,4 +14,6 @@ public interface EnrollmentService {
 	
 	List<Enrollment> findAllProposalSubmittedByUSer(Long userId, String proposalStatus);
 
+	List<Enrollment> findAll();
+
 }
