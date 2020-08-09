@@ -12,7 +12,7 @@ public interface EnrollmentService {
 
 	List<Enrollment> getUserEnrollment(Long userId);
 	
-	List<Enrollment> findAllProposalSubmittedByUSer(Long userId, String proposalStatus);
+	List<Enrollment> findAllProposalSubmittedByUser(Long userId, String proposalStatus);
 
 	List<Enrollment> findAll();
 

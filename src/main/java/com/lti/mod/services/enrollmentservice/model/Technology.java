@@ -4,7 +4,7 @@ import java.math.BigInteger;
 
 public class Technology{
 
-    private BigInteger id;
+    private Long id;
     private String technology;
     private String description;
     private String Status;
@@ -22,10 +22,10 @@ public class Technology{
 	}
 
 
-	public BigInteger getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getTechnology() {

@@ -1,6 +1,7 @@
 package com.lti.mod.services.enrollmentservice.proxy;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,5 +18,8 @@ public interface UserProxy {
 	
 	@GetMapping("/technology/{id}")
 	public Technology findTechnologybyId(@PathVariable("id") Long id);
+	
+	@GetMapping("/technology")
+	public List<Technology> getAllTechnologies();
 
 }
