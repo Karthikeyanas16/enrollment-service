@@ -13,7 +13,7 @@ import com.lti.mod.services.enrollmentservice.model.User;
 public interface UserProxy {
 
 	@GetMapping("/user/{id}")
-	public User findUserbyId(@PathVariable("id") BigInteger id);
+	public User findUserbyId(@PathVariable("id") Long id);
 	
 	@GetMapping("/technology/{id}")
 	public Technology findTechnologybyId(@PathVariable("id") Long id);

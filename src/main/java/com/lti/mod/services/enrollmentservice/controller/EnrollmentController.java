@@ -1,6 +1,5 @@
 package com.lti.mod.services.enrollmentservice.controller;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,11 +37,11 @@ public class EnrollmentController {
 		if (enrollemntdetails == null)
 			throw new NotFoundException("Enrollment Details not found");
 			
-		User studentUser = proxy.findUserbyId(BigInteger.valueOf(enrollemntdetails.getUser_id()));
+		User studentUser = proxy.findUserbyId(enrollemntdetails.getUser_id());
 		if(studentUser == null) 
 			throw new NotFoundException("Student User details not found");
 		
-		User mentorUser = proxy.findUserbyId(BigInteger.valueOf(enrollemntdetails.getMentor_id()));
+		User mentorUser = proxy.findUserbyId(enrollemntdetails.getMentor_id());
 		if(mentorUser == null) 
 			throw new NotFoundException("Mentor User details not found");
 		
@@ -83,13 +82,18 @@ public class EnrollmentController {
 		
 		List<Enrollment> enrollments = null;
 		List<Enrollment> enrolled = enrollmentService.getUserEnrollment(userId);
+		
 		if(CollectionUtils.isEmpty(enrolled)) {
 			return ResponseEntity.notFound().build();
 		}
 		
+		enrollments = new ArrayList<Enrollment>();
 		for(Enrollment enrollment:enrolled) {
-			enrollments = new ArrayList<Enrollment>();
 			Technology tech = proxy.findTechnologybyId(enrollment.getTechnology_id());
+			User studentUser = proxy.findUserbyId(userId);
+			User mentorUser = proxy.findUserbyId(enrollment.getMentor_id());
+			enrollment.setUsername(studentUser.getName());
+			enrollment.setMentorname(mentorUser.getName());
 			enrollment.setTechnology(tech.getTechnology());
 			enrollment.setDescription(tech.getDescription());
 			enrollment.setFees(tech.getFees());
@@ -107,11 +111,11 @@ public class EnrollmentController {
 		List<Enrollment> enrollments = enrollmentService.findAll();
 		
 		for (Enrollment enrollment : enrollments) {
-			User user = proxy.findUserbyId(BigInteger.valueOf(enrollment.getUser_id()));
+			User user = proxy.findUserbyId(enrollment.getUser_id());
 			if(user!=null)
 				enrollment.setUsername(user.getEmail());
 			
-			User mentor = proxy.findUserbyId(BigInteger.valueOf(enrollment.getMentor_id()));
+			User mentor = proxy.findUserbyId(enrollment.getMentor_id());
 			if(mentor!=null)
 				enrollment.setMentorname(mentor.getEmail());
 			
