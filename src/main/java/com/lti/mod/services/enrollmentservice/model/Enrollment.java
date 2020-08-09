@@ -9,7 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name="Enrollment")
 public class Enrollment implements Serializable{
@@ -25,6 +29,8 @@ public class Enrollment implements Serializable{
     @Column
     private Long user_id;
     @Column
+    private Long mentor_id;
+    @Column
     private Long technology_id;
     @Column
     private String comments;
@@ -32,6 +38,15 @@ public class Enrollment implements Serializable{
     private Long proposalAmount;
     @Column
     private String proposalStatus;
+    
+    @Transient
+    private String technology;
+    
+    @Transient
+    private String description;
+    
+    @Transient
+    private int fees;
 
     
     public Enrollment() {}
@@ -54,6 +69,15 @@ public class Enrollment implements Serializable{
 
 	public void setUser_id(Long user_id) {
 		this.user_id = user_id;
+	}
+	
+	public Long getMentor_id() {
+		return mentor_id;
+	}
+
+
+	public void setMentor_id(Long mentor_id) {
+		this.mentor_id = mentor_id;
 	}
 
 

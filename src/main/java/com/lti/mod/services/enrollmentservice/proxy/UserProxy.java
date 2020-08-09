@@ -16,6 +16,6 @@ public interface UserProxy {
 	public User findUserbyId(@PathVariable("id") BigInteger id);
 	
 	@GetMapping("/technology/{id}")
-	public Technology findTechnologybyId(@PathVariable("id") BigInteger id);
+	public Technology findTechnologybyId(@PathVariable("id") Long id);
 
 }
