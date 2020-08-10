@@ -38,7 +38,14 @@ public class EnrollmentServiceImpl  implements EnrollmentService{
 	public List<Enrollment> findAllProposalSubmittedByUser(Long userId, String proposalStatus) {
 		return enrollmentRepository.findAllProposalSubmittedByUser(userId, proposalStatus);
 	}
-
+	@Override
+	public List<Enrollment> findAllProposalSubmittedToMentor(Long userId, String proposalStatus) {
+		return enrollmentRepository.findAllProposalSubmittedToMentor(userId, proposalStatus);
+	}
+	@Override
+	public List<Enrollment> findAllUserMentor(Long userId) {
+		return enrollmentRepository.findAllUserMentor(userId);
+	}
 	@Override
 	public List<Enrollment> findAll() {
 		return (List<Enrollment>) enrollmentRepository.findAll();

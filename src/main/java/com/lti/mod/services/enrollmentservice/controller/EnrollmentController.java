@@ -68,30 +68,79 @@ public class EnrollmentController {
 		
 		 return new ResponseEntity<>(enrollmentService.getUserEnrollment(userId), HttpStatus.CREATED);
     }
-	
+
 	@GetMapping("/search/{userId}/{proposalStatus}")
-    public ResponseEntity<?> findAllProposalSubmitedByUser(@PathVariable Long userId, @PathVariable String proposalStatus) throws NotFoundException {
+	public ResponseEntity<?> findAllProposalSubmittedByUSer(@PathVariable Long userId, @PathVariable String proposalStatus) throws NotFoundException {
 		if(userId == 0)
 			throw new NotFoundException("User id not found");
-		
-		List<Enrollment> enrollments = null;
-		List<Enrollment> enrolled = enrollmentService.findAllProposalSubmittedByUser(userId, proposalStatus);
-		enrollments = new ArrayList<Enrollment>();
-		for(Enrollment enrollment:enrolled) {
-			Technology tech = proxy.findTechnologybyId(enrollment.getTechnology_id());
-			User studentUser = proxy.findUserbyId(userId);
-			User mentorUser = proxy.findUserbyId(enrollment.getMentor_id());
-			enrollment.setUsername(studentUser.getName());
-			enrollment.setMentorname(mentorUser.getName());
-			enrollment.setTechnology(tech.getTechnology());
-			enrollment.setDescription(tech.getDescription());
-			enrollment.setFees(tech.getFees());
-			enrollments.add(enrollment);
+
+		List<Enrollment> enrollments = enrollmentService.findAllProposalSubmittedByUser(userId, proposalStatus);
+
+		for (Enrollment enrollment : enrollments) {
+			User user = proxy.findUserbyId(enrollment.getUser_id());
+			if(user!=null)
+				enrollment.setUsername(user.getName());
+
+			User mentor = proxy.findUserbyId(enrollment.getMentor_id());
+			if(mentor!=null)
+				enrollment.setMentorname(mentor.getName());
+
+			Technology technology = proxy.findTechnologybyId(enrollment.getTechnology_id());
+			if(technology!= null)
+				enrollment.setTechnology(technology.getTechnology());
+			enrollment.setDescription(technology.getDescription());
 		}
-		  
-		return new ResponseEntity<>(enrollments, HttpStatus.OK);
-    }
-	
+
+		return new ResponseEntity<>(enrollments, HttpStatus.CREATED);
+	}
+	@GetMapping("/search/mentor/{userId}/{proposalStatus}")
+	public ResponseEntity<?> findAllProposalSubmitedToMentor(@PathVariable Long userId, @PathVariable String proposalStatus) throws NotFoundException {
+		if(userId == 0)
+			throw new NotFoundException("User id not found");
+
+		List<Enrollment> enrollments = enrollmentService.findAllProposalSubmittedToMentor(userId, proposalStatus);
+
+		for (Enrollment enrollment : enrollments) {
+			User user = proxy.findUserbyId(enrollment.getUser_id());
+			if(user!=null)
+				enrollment.setUsername(user.getName());
+
+			User mentor = proxy.findUserbyId(enrollment.getMentor_id());
+			if(mentor!=null)
+				enrollment.setMentorname(mentor.getName());
+
+			Technology technology = proxy.findTechnologybyId(enrollment.getTechnology_id());
+			if(technology!= null)
+				enrollment.setTechnology(technology.getTechnology());
+			enrollment.setDescription(technology.getDescription());
+		}
+
+		return new ResponseEntity<>(enrollments, HttpStatus.CREATED);
+	}
+	@GetMapping("/search/mentor/enrolled/{userId}")
+	public ResponseEntity<?> findAllUserMentor(@PathVariable Long userId) throws NotFoundException {
+		if(userId == 0)
+			throw new NotFoundException("User id not found");
+
+		List<Enrollment> enrollments = enrollmentService.findAllUserMentor(userId);
+
+		for (Enrollment enrollment : enrollments) {
+			User user = proxy.findUserbyId(enrollment.getUser_id());
+			if(user!=null)
+				enrollment.setUsername(user.getName());
+
+			User mentor = proxy.findUserbyId(enrollment.getMentor_id());
+			if(mentor!=null)
+				enrollment.setMentorname(mentor.getName());
+
+			Technology technology = proxy.findTechnologybyId(enrollment.getTechnology_id());
+			if(technology!= null)
+				enrollment.setTechnology(technology.getTechnology());
+			enrollment.setDescription(technology.getDescription());
+		}
+
+		return new ResponseEntity<>(enrollments, HttpStatus.CREATED);
+	}
 	@GetMapping("/search/user/enrolled/{userId}")
 	public ResponseEntity<?> getAllTechnologiesForUser(@PathVariable Long userId){
 		
@@ -118,28 +167,7 @@ public class EnrollmentController {
 		return new ResponseEntity<>(enrollments, HttpStatus.OK);
 		
 	}
-	
-	
-/*	@GetMapping("/search/technology/{userId}")
-	public ResponseEntity<?> getAllNonEnrolledTechnologiesForUser(@PathVariable Long userId) {
-		
-		List<Enrollment> enrollments = null;
-		enrollments = new ArrayList<Enrollment>();
-		List<Technology> tech = proxy.getAllTechnologies();
-		List<Enrollment> enrolled = enrollmentService.getUserEnrollment(userId);
-		for(Technology t:tech){
-			Long techId = t.getId();
-			 {
-				for(Enrollment enrollment:enrolled) {
-				if(t.getId() != techId) {
-					enrollments.add(enrollment);
-				} 
-			  }
-			}
-		}
-		return new ResponseEntity<>(enrollments, HttpStatus.OK);
-	}*/
-	
+
 	@GetMapping("/findall")
     public ResponseEntity<?> getAllEnrollements() throws NotFoundException {
 		
