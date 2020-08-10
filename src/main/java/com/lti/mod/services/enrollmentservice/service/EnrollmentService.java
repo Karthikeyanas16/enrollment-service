@@ -16,5 +16,6 @@ public interface EnrollmentService {
 	List<Enrollment> findAllProposalSubmittedToMentor(Long userId, String proposalStatus);
 	List<Enrollment> findAllUserMentor(Long userId);
 	List<Enrollment> findAll();
+	Enrollment updateEnrollmentStatus(Enrollment enrollemntdetails);
 
 }

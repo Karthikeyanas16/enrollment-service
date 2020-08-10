@@ -2,6 +2,7 @@ package com.lti.mod.services.enrollmentservice.service;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -50,6 +51,12 @@ public class EnrollmentServiceImpl  implements EnrollmentService{
 	public List<Enrollment> findAll() {
 		return (List<Enrollment>) enrollmentRepository.findAll();
 	}
-	
-	
+
+	@Override
+	public Enrollment updateEnrollmentStatus(Enrollment enrollemntdetails) {
+		Optional<Enrollment> enrollmentOption = enrollmentRepository.findById(enrollemntdetails.getId());
+		Enrollment  existingEnrol = enrollmentOption.get();
+		existingEnrol.setProposalStatus(enrollemntdetails.getProposalStatus());
+		return enrollmentRepository.save(existingEnrol);
+	}
 }

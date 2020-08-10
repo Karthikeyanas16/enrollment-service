@@ -69,6 +69,15 @@ public class EnrollmentController {
 		 return new ResponseEntity<>(enrollmentService.getUserEnrollment(userId), HttpStatus.CREATED);
     }
 
+	@PostMapping("/update/enrollment-status")
+	public ResponseEntity<?> updatEnrollmentStatus(@RequestBody Enrollment enrollemntdetails) throws NotFoundException {
+		if(enrollemntdetails == null)
+			throw new NotFoundException("Enrollment  not found");
+		Enrollment savedEnrollment = enrollmentService.updateEnrollmentStatus(enrollemntdetails);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+
 	@GetMapping("/search/{userId}/{proposalStatus}")
 	public ResponseEntity<?> findAllProposalSubmittedByUSer(@PathVariable Long userId, @PathVariable String proposalStatus) throws NotFoundException {
 		if(userId == 0)
