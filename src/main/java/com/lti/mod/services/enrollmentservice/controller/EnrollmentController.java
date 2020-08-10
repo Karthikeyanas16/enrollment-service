@@ -125,10 +125,11 @@ public class EnrollmentController {
 		List<Enrollment> enrollments = enrollmentService.findAllUserMentor(userId);
 
 		for (Enrollment enrollment : enrollments) {
+			System.out.println(enrollment.getUser_id());
 			User user = proxy.findUserbyId(enrollment.getUser_id());
 			if(user!=null)
 				enrollment.setUsername(user.getName());
-
+			System.out.println(user.getName());
 			User mentor = proxy.findUserbyId(enrollment.getMentor_id());
 			if(mentor!=null)
 				enrollment.setMentorname(mentor.getName());
