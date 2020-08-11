@@ -11,6 +11,9 @@ import com.lti.mod.services.enrollmentservice.model.Enrollment;
 public interface EnrollmentRepository extends CrudRepository<Enrollment, Long>{
 
 
+	@Query(value = "select * from Enrollment e where e.user_id = ?1 and e.mentor_id = ?2 and e.technology_id = ?3", nativeQuery = true)
+	Enrollment findAllbyUserIdMentorIdTechId(Long userId,Long mentorId,Long technologyId);
+
 	@Query(value = "select * from Enrollment e where e.user_id = ?1", nativeQuery = true)
 	List<Enrollment> findAllbyUserId(Long userId);
 

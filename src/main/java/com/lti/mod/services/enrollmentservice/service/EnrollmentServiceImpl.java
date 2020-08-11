@@ -54,8 +54,9 @@ public class EnrollmentServiceImpl  implements EnrollmentService{
 
 	@Override
 	public Enrollment updateEnrollmentStatus(Enrollment enrollemntdetails) {
-		Optional<Enrollment> enrollmentOption = enrollmentRepository.findById(enrollemntdetails.getId());
-		Enrollment  existingEnrol = enrollmentOption.get();
+		Enrollment existingEnrol = enrollmentRepository.findAllbyUserIdMentorIdTechId
+				(enrollemntdetails.getUser_id(), enrollemntdetails.getMentor_id(), enrollemntdetails.getTechnology_id());
+		// Enrollment  existingEnrol = enrollmentOption.get();
 		existingEnrol.setProposalStatus(enrollemntdetails.getProposalStatus());
 		return enrollmentRepository.save(existingEnrol);
 	}
